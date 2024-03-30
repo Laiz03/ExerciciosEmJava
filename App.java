@@ -1,47 +1,43 @@
 package com.example;
-import java.io.*;
 
-public class App 
-{
-    public static void main( String[] args )
-    {
-        //cria o caminho do arquivo
-        File arquivoDestinoExercicio = new File("E:\\Atividades ADS\\DESENVOLVIMENTO DE SOFTWARE - CHICO\\exerciciolerescrever\\arquivoDestinoexercicio.txt");
+import java.io.BufferedReader;
+import java.io.FileReader;
 
-        //cria o arquivo
+public class App {
+    public static void main(String[] args) {
+        BufferedReader arquivo = null;
         try {
-            arquivoDestinoExercicio.createNewFile();
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-
-        //cria as variaveis
-
-        BufferedReader arquivoOrigemExercicio;
-        BufferedWriter arquivoDestinoExercicio2;
-
-        //cria o caminho
-        try {
-            arquivoDestinoExercicio2 = new BufferedWriter(new FileWriter
-            ("E:\\Atividades ADS\\DESENVOLVIMENTO DE SOFTWARE - CHICO\\exerciciolerescrever\\arquivoDestinoexercicio.txt"));
-            arquivoOrigemExercicio = new BufferedReader(new FileReader
-            ("E:\\Atividades ADS\\DESENVOLVIMENTO DE SOFTWARE - CHICO\\exerciciolerescrever\\arquivoOrigemexercicio.txt"));
+            arquivo = new BufferedReader(new FileReader("C:\\Users\\laiz.oliveira\\Desktop\\arquivoercf\\arquivo.csv"));
             String str;
+            Pessoa p;
+            while ((str = arquivo.readLine()) != null) {
+                if (str.startsWith("nome,")) {  //PASSA A PRIMEIRA LINHA ONDE COMEÇA COM (NOME,)
+                    continue;
+                }
+                String[] strL = str.split(","); //linha dividida em partes usando a  ",", e armazenando as partes no array strL 
+                System.out.println("Quantas palavras tem?" + strL.length);
+                System.out.println(str);
+                p = new Pessoa();
+                p.nome = strL[0];
+                p.idade = Integer.parseInt(strL[1]); //conversão de string p int  
+                p.email = strL[2];
+                System.out.println(p);
+            } 
 
-            //ler o arquivo e já escreve no arquivo novo
-            while ((str = arquivoOrigemExercicio.readLine()) != null){
-                arquivoDestinoExercicio2.write(str);
-                arquivoDestinoExercicio2.newLine(); 
-            }
-
-            arquivoDestinoExercicio2.close();
-            arquivoOrigemExercicio.close();
+            arquivo.close();
 
         } catch (Exception e) {
             // TODO: handle exception
         }
 
-
-
+        /*
+         * String loremIpsum =
+         * "Lorem;Ipsum;is;simply;dummy;text;of;the;printing;and;typesetting;industry"
+         * StringTokenizer tokenizer = new StringTokenizer(loremIpsum, ";");
+         * System.out.println("Quantas palavras tem? " + tokenizer.countTokens());
+         * 
+         * String[] loremIpsumSplitted = loremIpsum.split(";");
+         * System.out.println("O item tem 23? " + loremIpsumSplitted());
+         */
     }
 }
